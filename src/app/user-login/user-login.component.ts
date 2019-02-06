@@ -1,7 +1,8 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { AuthenticationService } from '../_services/authentication.service';
+import { IUser } from '../User';
 
 
 @Component({
@@ -9,17 +10,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.css']
 })
-
 export class UserLoginComponent implements OnInit {
+    data:IUser
     loginForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
-   get val() { return this.loginForm.controls; }
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authenticationService: AuthenticationService,
     ) { }
 
   ngOnInit() {
@@ -28,6 +30,7 @@ export class UserLoginComponent implements OnInit {
       password: ['', Validators.required]
   });
   }
+  get val() { return this.loginForm.controls; }
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid)
@@ -35,5 +38,13 @@ export class UserLoginComponent implements OnInit {
         return;
     }
 
+     this.loading = true;
+     this.authenticationService.Login(this.val.username.value, this.val.password.value)
+     .subscribe
+       (data => 
+        {
+          this.router.navigate (['/ResourceDetails'])
+        },
+        );
   }
 }
