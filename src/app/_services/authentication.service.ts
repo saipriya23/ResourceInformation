@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import {Observable} from 'rxjs';
-import { IUser } from '../User';
+import { IUser, MobileList } from '../User';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +10,16 @@ import { IUser } from '../User';
 export class AuthenticationService {
 
   constructor(private http:HttpClient) { }
-  configurl=""
-  Login(username: string, password: string):Observable<IUser>
-  {
-      console.log(username,password)
-    return this.http.get<IUser>(this.configurl);
-  }
+
+   configurl="http://localhost:62152/api/Login"
+   Login(username:IUser):Observable<Boolean>
+   {
+     return this.http.post<Boolean>(this.configurl,username);
+   }
+  //  url="http://localhost:62152/api/MobileList"
+  //  ResourceList():Observable<MobileList>
+  //  {
+  //    return this.http.get<MobileList>(this.url);
+  //  }
 }
     

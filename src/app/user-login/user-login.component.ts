@@ -2,8 +2,6 @@ import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../_services/authentication.service';
-import { IUser } from '../User';
-
 
 @Component({
   selector: 'app-user-login',
@@ -11,26 +9,24 @@ import { IUser } from '../User';
   styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent implements OnInit {
-    data:IUser
     loginForm: FormGroup;
     loading = false;
     submitted = false;
-    returnUrl: string;
-
+    wrongCredentials = false;
+     get val() { return this.loginForm.controls; }
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
+    private authenticationService: AuthenticationService
     ) { }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+      this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
   });
   }
-  get val() { return this.loginForm.controls; }
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid)
@@ -39,12 +35,18 @@ export class UserLoginComponent implements OnInit {
     }
 
      this.loading = true;
-     this.authenticationService.Login(this.val.username.value, this.val.password.value)
-     .subscribe
-       (data => 
-        {
-          this.router.navigate (['/ResourceDetails'])
-        },
-        );
+      this.authenticationService.Login(this.loginForm.value)
+      .subscribe(
+       data =>
+        {          
+          if(data===true)
+          {
+            this.router.navigate(['/resourcedetails']);
+          } else 
+          {
+            this.wrongCredentials = true;
+          }
+        }
+       );
   }
 }

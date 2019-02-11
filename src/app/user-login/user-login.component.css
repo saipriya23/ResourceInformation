@@ -10,6 +10,9 @@
       padding: 20px;
       color: yellow;
 }
+h4 {
+  color:red
+}
 
   .login-header {
     background: turquoise;
@@ -56,8 +59,10 @@
     border-color: #05a;
   }
 
- .is-invalid
- {
+  .is-invalid {
       border-color: rgb(216, 12, 12);
-    color: rgb(230, 14, 14);
+      color: rgb(230, 14, 14);
+  }
+  .log{
+    text-align: center;
   }

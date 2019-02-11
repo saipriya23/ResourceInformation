@@ -1,0 +1,13 @@
+<table> 
+    <tr>
+     <th>Resource_Id</th>
+     <th>Resource-Name</th> 
+     <th>Availability</th>
+    </tr>
+     <tr *ngFor="let employee of ResourceList">
+       <td>{{employee.Resource_Id}}</td>
+       <td>{{employee.Resource_Name}}</td>
+       <td>{{employee.Availability}}</td>
+     </tr>
+   </table>
+

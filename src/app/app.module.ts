@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserLoginComponent } from './user-login/user-login.component';
 import { RouterModule } from '@angular/router';
-import {FormsModule}from '@angular/forms'
+import {FormsModule}from '@angular/forms';
+import { ResourceDetailsComponent } from './resource-details/resource-details.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    ResourceDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +25,9 @@ import {FormsModule}from '@angular/forms'
     ([
       {
         path:'', component:UserLoginComponent 
+      },
+      {
+        path:'resourcedetails',component:ResourceDetailsComponent
       },
     ])
   ],
